@@ -1,0 +1,344 @@
+.content {
+
+  hr {
+    background-color: var(--color-contrast-low);
+    height: 1px;
+    margin: 2.5rem 0;
+  }
+
+  blockquote {
+    border-left-width: 4px;
+    border-left-style: solid;
+    position: relative;
+    border-color: var(--color-primary);
+    display: block;
+    margin: 0;
+    padding: .125em 1em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    overflow-x: auto;
+    background-color: var(--color-contrast-lower);
+  }
+
+  h1:first-of-type {
+    margin-bottom: 3rem;
+    padding-bottom: 0.5rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-contrast-higher);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: var(--weight-normal);
+    font-family: var(--family-condensed);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    a {
+      color: var(--color-primary);
+      font-size: 1.4rem;
+      vertical-align: bottom;
+      opacity: 0;
+      transition: opacity var(--transition-duration-fast) var(--transition-timing-function);
+      order: 1;
+    }
+
+    a:hover {
+      opacity: 1;
+      transition: opacity var(--transition-duration-fast) var(--transition-timing-function);
+    }
+  }
+
+  h1:first-of-type:hover {
+    a {
+      display: none;
+    }
+  }
+
+  h1:hover,
+  h2:hover,
+  h3:hover,
+  h4:hover,
+  h5:hover,
+  h6:hover {
+    a {
+      opacity: 1;
+      transition: opacity var(--transition-duration-fast) var(--transition-timing-function);
+    }
+  }
+
+  h1 {
+    font-size: var(--size-1);
+    letter-spacing: -0.05em;
+  }
+
+  h2 {
+    font-size: var(--size-3);
+    margin: var(--size-1) 0 var(--size-5) 0;
+    line-height: 1.2;
+  }
+
+  h2:not(:first-of-type) {
+    margin-top: 1.5em;
+  }
+
+  h3 {
+    font-size: var(--size-4);
+    margin: var(--size-4) 0;
+  }
+
+  h4 {
+    margin: var(--size-4) 0 var(--size-4) 0;
+  }
+
+  h5 {
+    margin: var(--size-4) 0 var(--size-4) 0;
+  }
+
+  h6 {
+    margin: var(--size-4) 0 var(--size-4) 0;
+  }
+
+  ul {
+
+    list-style: none;
+
+    ul {
+      list-style: none;
+    }
+
+    &>li {
+      margin: var(--content-list-item-margin);
+    }
+
+    &>li::before {
+      content: "\2022";
+      color: var(--color-contrast-medium);
+      font-weight: var(--weight-bold);
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+
+    margin-left: var(--size-3);
+  }
+}
+
+// Tables
+/////////
+
+.content {
+
+  .table-container {
+    margin: 1em 0 2em 0;
+  }
+  
+  table {
+    width: 100%;
+    //margin: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 0.9em;
+    table-layout: auto !important;
+
+    thead {
+      vertical-align: middle;
+      border: none;
+      font-weight: var(--weight-bold);
+
+      th {
+        border-top: 1px solid var(--color-contrast-medium);
+        border-bottom: 1px solid var(--color-contrast-medium);
+        padding: 0.75em;
+      }
+    }
+
+    tbody {
+      border-bottom: 1px solid var(--color-contrast-medium);
+
+      td {
+        padding: 0.75em;
+        border: none;
+        border-bottom: 1px solid var(--color-contrast-low);
+        vertical-align: middle;
+        // &:first-child {
+        //   code {
+        //     background-color: transparent;
+        //     padding: 0;
+        //   }
+        // }
+      }
+
+      tr:nth-child(even) {
+        background-color: alpha(var(--color-contrast-lower), 0.5);
+      }
+    }
+
+    tr {
+      border: none;
+    }
+  }
+}
+
+.table {
+  background-color: transparent;
+  color: var(--color-contrast-high);
+}
+
+[data-theme="dark"] {
+
+  .content h1,
+  .content h2,
+  .content h3,
+  .content h4,
+  .content h5,
+  .content h6 {
+    color: var(--color-contrast-high);
+  }
+
+  .content table thead th,
+  .content table thead td {
+    color: var(--color-contrast-higher);
+  }
+
+  .content blockquote {
+    background-color: var(--color-contrast-low);
+  }
+
+  .content table tbody tr:nth-child(even) {
+    background-color: transparent;
+  }
+
+  .content table tbody td {
+    border-bottom: 1px solid var(--color-contrast-medium);
+  }
+
+  //.content h1:first-of-type,
+  .content table tbody,
+  .content table thead th {
+    border-color: var(--color-contrast-low);
+  }
+
+  .content table thead th {
+    border-top: 1px solid var(--color-contrast-high);
+    border-bottom: 1px solid var(--color-contrast-high);
+  }
+
+  .content table tbody {
+    border-bottom: 1px solid var(--color-contrast-high);
+  }
+}
+
+// Ordered List
+///////////////
+
+main .footnotes {
+  ol {
+
+    margin: 2em 0;
+
+    >li::before {
+      font-size: 0.7em;
+      line-height: 2;
+      content: counter(li);
+      position: absolute;
+      top: -0.1em;
+      left: 0.5em;
+      color: var(--color-contrast-medium);
+      //margin-left: -1.5em;
+      width: 1.3rem;
+      border-radius: 0;
+      text-align: center;
+      line-height: 1.25rem;
+      width: 2.25rem;
+      box-shadow: 0 0 0;
+      font-weight: var(--weight-normal);
+      background: none;
+      margin: 0;
+      box-shadow: none;
+    }
+
+    >li {
+      position: relative;
+      counter-increment: li;
+      list-style: none;
+      margin: 1em 0 0 0;
+    }
+  }
+
+  ol>li,
+  ol>li+li {
+    padding-left: 2.25rem;
+    box-shadow: none;
+    list-style: none;
+  }
+}
+
+main {
+
+  ol>li:before {
+    font-size: 0.9em;
+    position: absolute;
+    top: -.5rem;
+    left: 0.1rem;
+    display: block;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 2.25rem;
+    width: 2.25rem;
+    box-shadow: var(--shadow-low), 0 0 0 0.5rem var(--color-bg);
+    content: counter(steps);
+    font-weight: var(--weight-bold);
+    background: var(--color-primary);
+    color: var(--color-white);
+    margin-left: -1.2rem;
+  }
+
+  ol>li,
+  ol>li+li {
+    padding-left: 2.25rem;
+    counter-increment: steps;
+    position: relative;
+    margin-bottom: 1.75rem;
+    margin-top: 2.5rem;
+    box-shadow: inset 2px 0 var(--color-contrast-low);
+    list-style: none;
+  }
+
+  ol {
+    counter-reset: steps;
+    margin-left: 2rem;
+  }
+
+}
+
+// main ol, main ol > li {
+//   display: block;
+//   padding: 0;
+//   margin: 30px 0px;
+//   list-style: none;
+// }
+
+
+// main ol, main ol > li {
+//   display: block;
+//   padding: 0;
+//   margin: 30px 0px;
+//   list-style: none;
+// }

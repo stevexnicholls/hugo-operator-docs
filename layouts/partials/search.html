@@ -1,0 +1,14 @@
+{{ if not .Site.Params.disableSearch }}
+<div class="navbar-item">
+  <div class="buttons">
+      <a class="button search no-text search-wrapper is-fullwidth" id="search-button" alt="search" href="javascript;" onclick="searchToggle(this, event)">
+        <span class="icon" >  
+          <i class="mdi mdi-magnify"></i>
+        </span>
+        <form autocomplete="off" action="">
+            <input data-search-input type="text" class="search" id="search-input" name="search" placeholder="{{T "Search-placeholder"}}" alt="search-input">
+        </form>
+    </a>
+  </div>
+</div>
+{{ end }}

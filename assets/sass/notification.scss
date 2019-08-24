@@ -1,0 +1,81 @@
+.notification {
+  margin: 2em 0;
+  position: relative;
+  position: relative;
+  padding: 1em;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  display: flex;
+
+  p {
+    padding: 0;
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.notification a:not(.button):not(.dropdown-item) {
+  color: $blue;
+  text-decoration: none;
+}
+
+:root,
+[data-theme="dark"] {
+  .notification.is-success {
+    background-color: alpha(var(--color-success-light), 0.4);
+    color: var(--color-success);
+    border: 1px solid alpha(var(--color-success-lighter), 1);
+
+    strong {
+      color: var(--color-success);
+    }
+  }
+
+  .notification.is-danger,
+  .notification.is-error {
+    background-color: alpha(var(--color-error-light), 0.4);
+    color: var(--color-error);
+    border: 1px solid alpha(var(--color-error-lighter), 1);
+
+    strong {
+      color: var(--color-error);
+    }
+  }
+
+
+  .notification.is-warning {
+    background-color: alpha(var(--color-warning-light), 0.4);
+    color: var(--color-warning-darker);
+    border: 1px solid alpha(var(--color-warning), 1);
+
+    strong {
+      color: var(--color-dark);
+    }
+  }
+
+  .notification a:not(.button):not(.dropdown-item) {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+}
+
+[data-theme="dark"] .notification.is-info {
+  background-color: alpha(var(--color-primary-light), 0.4);
+  color: var(--color-primary-dark);
+  border: 1px solid alpha(var(--color-primary-light), 1);
+
+  strong {
+    color: var(--color-primary-lighter);
+  }
+}
+
+.notification.is-info {
+  background-color: alpha(var(--color-primary-light), 0.4);
+  color: var(--color-primary-darker);
+  border: 1px solid alpha(var(--color-primary-dark), 1);
+
+  strong {
+    color: var(--color-primary-darker);
+  }
+}

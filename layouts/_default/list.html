@@ -1,0 +1,52 @@
+{{ define "title" }}
+  {{ .Title }} &ndash; {{ .Site.Title }}
+{{ end }}
+
+{{ define "main" }}
+    {{ partial "navbar.html" . }}
+    {{ partial "breadcrumb.html" . }}
+    {{ partial "navigation.html" . }}
+    <div class="section main">
+      <div class="container">
+        <div class="columns is-desktop">
+          <div class="column is-hidden-fullscreen">                        
+            {{ partial "treemenu.html" . }}
+          </div>
+          <main class="column is-two-thirds is-full-touch content is-fullscreen">
+          {{ .Content }}
+          <div class="columns is-multiline is-two-thirds is-full-touch content is-fullscreen mt-20">
+              {{ range .Pages }}
+                {{ if .Title }}
+                <div class="column is-half ">
+                  <div class="page-card pa4-1">
+                    <div class="page-card-header">
+                      <p>
+                        <a href="{{ .RelPermalink }}" class="">{{ .Title }}</a>
+                      </p>
+                    </div>
+                    <div class="page-card-content">
+                      {{ .Description }}
+                    </div>
+                    <div class="page-card-footer">
+                      <p>
+                          <a href="{{ .RelPermalink }}">Read more</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {{ end }}
+              {{ end }}
+              </div>
+          </main>
+          <div class="column is-hidden-fullscreen is-hidden-touch">
+              {{ partial "tableofcontents.html" . }}
+          </div>
+        </div>
+      </div>
+    </div>
+      {{ partial "footer.html" . }}
+{{ end }}
+
+{{ define "scripts" }}
+  {{ partial "scripts.html" . }}
+{{ end }}

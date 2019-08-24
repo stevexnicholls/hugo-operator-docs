@@ -1,0 +1,46 @@
+{{ $currentNode := . }}
+<nav class="container navigation is-hidden-desktop">
+  <select class="navigation__select">
+  {{range .Site.Home.Sections.ByWeight}}
+    {{ template "navigation__select-options" dict "sect" . "currentnode" $currentNode }}
+  {{ end}}
+    <optgroup label="Home">
+      <option value="{{ .Site.Home.RelPermalink }}" {{ if eq .Site.Home $currentNode }} selected {{ end }}>
+          Home
+      </option>
+    {{range .Site.Home.Pages.ByWeight}}
+      {{ if and (eq .Parent .Site.Home) (.Title) }}
+        {{ template "navigation__select-options" dict "sect" . "currentnode" $currentNode }}
+      {{ end }}
+    {{ end}}
+    </optgroup>
+  </select>
+</nav>
+
+{{ define "navigation__select-options" }}
+  {{ $currentNode := .currentnode }}
+  {{ with .sect}}
+    {{ if .IsSection }}
+      {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
+      <optgroup label="{{ .LinkTitle }}">
+      <option value="{{ .RelPermalink }}" {{ if eq . $currentNode }} selected {{ end }}>
+          {{ .LinkTitle }}
+      </option>
+      {{ if ne $numberOfPages 0 }}
+        {{ .Scratch.Set "pages" .Pages }}
+        {{ if .Sections}}
+          {{ .Scratch.Set "pages" (.Pages | union .Sections) }}
+        {{ end}}
+        {{ $pages := (.Scratch.Get "pages") }}
+        {{ range $pages.ByTitle }}
+            {{ template "navigation__select-options" dict "sect" . "currentnode" $currentNode }}
+        {{ end}}
+      {{ end }}
+    </optgroup>
+    {{ else }}
+    <option value="{{ .RelPermalink }}" {{ if eq . $currentNode }} selected {{ end }}>
+      {{ .LinkTitle }}
+    </option>
+    {{ end }}
+  {{ end }}
+{{ end }}

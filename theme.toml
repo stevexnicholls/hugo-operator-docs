@@ -1,0 +1,12 @@
+name = "Docs"
+license = "Apache-2.0"
+licenselink = "https://github.com/stevexnicholls/hugo-operator-docs/blob/master/LICENSE.md"
+description = ""
+homepage = "https://github.com/stevexnicholls/hugo-operator-docs"
+tags = ["Documentation", "Docs", "Responsive", "Multilingual"]
+features = ["Documentation", "Multilingual"]
+min_version = 0.57
+
+[author]
+  name = "Steve Nicholls"
+  homepage = "http://stevexnicholls.com"

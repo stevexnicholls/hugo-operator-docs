@@ -1,0 +1,25 @@
+{{ define "scripts" }}
+{{ end }}
+
+{{ define "main"}}
+<main class="pl-40 pr-40 pt-20 pb-40">  
+    <a href="{{ "/" | relURL }}">
+    <div class="container">
+        <span class="title is-size-2 is-size-4-mobile is-marginless">{{ .Site.Title }}</span>
+        {{ if isset .Site.Params "sitesubtitle" }}
+        <span class="subtitle is-size-3 is-size-5-mobile is-marginless">{{ .Site.Params.sitesubtitle }}</span>
+        {{ end }}
+      </div>
+    </a>
+    <div class="container">
+        <div class="columns">
+          <div class="column content pt-80">
+              <p class="is-size-1">404</p>
+              <p class="subtitle has-text-grey-light">Oops! This page could not be found. ¯\_(ツ)_/¯</p>
+              <p><a href="{{ "/" | relURL }}">Go Home</a></p>
+          </div>
+        </div>
+    </div>
+  </main>
+  {{ partial "footer.html" . }}
+{{ end }}

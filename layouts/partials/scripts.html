@@ -1,0 +1,25 @@
+{{ $clipboard := resources.Get "js/clipboard.min.js" | resources.Fingerprint "sha512" }}
+<script type="text/javascript" src="{{ $clipboard.Permalink }}" integrity="{{ $clipboard.Data.Integrity }}"></script>
+{{ $jquery := resources.Get "js/jquery-3.4.1.min.js" | resources.Fingerprint "sha512" }}
+<script type="text/javascript" src="{{ $jquery.Permalink }}" integrity="{{ $jquery.Data.Integrity }}"></script>
+{{ $toggle := resources.Get "js/toggle.js" }}
+{{ $util := resources.Get "js/util.js" }}
+{{ $hugo := resources.Get "js/hugo.js" }}
+{{ $general := resources.Get "js/general.js" }}
+{{ $js := slice $toggle $util $hugo $general | resources.Concat "js/bundle.js" | resources.Minify }}
+{{ $secureJS := $js | resources.Fingerprint "sha512" }}
+<script type="text/javascript" src="{{ $secureJS.Permalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
+{{ $lunr := resources.Get "js/lunr.js" | resources.Minify | resources.Fingerprint "sha512" }}
+<script type="text/javascript" src="{{ $lunr.Permalink }}" integrity="{{ $lunr.Data.Integrity }}"></script>
+<script type="text/javascript">
+  {{ if .Site.IsMultiLingual }}
+      var baseurl = "{{.Site.BaseURL}}{{.Site.LanguagePrefix}}";
+  {{ else }}
+      var baseurl = "{{.Site.BaseURL}}";
+  {{ end }}
+</script>
+{{ $search := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint "sha512" }}
+<script type="text/javascript" src="{{ $search.Permalink }}" integrity="{{ $search.Data.Integrity }}"></script>
+<script>
+  autocomplete(document.getElementById("search-input"));
+</script>

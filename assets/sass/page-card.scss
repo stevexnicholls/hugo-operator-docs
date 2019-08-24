@@ -1,0 +1,22 @@
+.page-card {
+  border: 1px solid var(--color-contrast-low);
+  height: 100%;
+  padding: 0.8em 1.8rem;
+
+  .page-card-header {
+    font-size: var(--size-5);
+    font-weight: var(--weight-bold);
+  }
+
+  .page-card-content {
+    color: var(--color-contrast-medium);
+  }
+
+  .page-card-footer {
+    font-size: var(--size-6);
+  }
+}
+
+[data-theme="dark"] .page-card {
+  background-color: var(--color-contrast-lower);
+}

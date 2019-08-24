@@ -1,0 +1,158 @@
+@charset "utf-8";
+
+// Bulma overrides
+//////////////////
+
+$black: #000;
+$blue: hsl(207, 85%, 57%); //var(--color-primary)
+$blue-light: hsl(207, 85%, 67%); // var(--color-primary-light)
+$input-background-dark: hsl(207, 85%, 67%); // var(--color-contrast-medium)
+$input-border-light: hsl(0, 0%, 82%); // var(--color-contrast-low)
+$input-border-dark: var(--color-contrast-medium);
+$input-placeholder-color: hsl(0, 0%, 82%); // var(--color-contrast-low)
+$input-placeholder-color-dark: hsl(0, 0%, 95%); // var(--color-contrast-lower)
+$menu-item-active-background-color: transparent;
+$menu-list-link-padding: 0.3em 0em;
+$menu-item-hover-background-color: transparent;
+$menu-item-hover-color: $black;
+$menu-item-active-color: $blue;
+$family-sans-serif: "Roboto", BlinkMacSystemFont, -apple-system, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$family-monospace: "Roboto Mono", monospace; 
+$navbar-box-shadow-color: hsl(0, 0%, 82%); // var(--color-contrast-low)
+$navbar-box-shadow-size: 0 1px 0 0;
+$content-list-item-margin: 0.6em 0 0.6em 0;
+$code: hsl(0, 0%, 15%); // var(--color-contrast-high)
+$dropdown-item-active-background-color: #fff; // var(--color-white)
+$dropdown-item-active-color: $blue;
+$dropdown-content-shadow: none;
+$title-size: 2.5em;
+$title-weight: 700;
+$subtitle-size: 2em;
+$subtitle-color: $blue;
+$navbar-background-color: transparent;
+$section-padding: var(--section-padding);
+$body-size: 17px;
+$body-line-height: 1.52947;
+$body-weight: 300;
+$weight-bold: 400;
+$list-item-color: hsl(0, 0%, 95%); // var(--color-contrast-lower)
+
+/*! bulma.io v0.7.5 | MIT License | github.com/jgthms/bulma */
+// @import "bulma-0.7.5/bulma.sass";
+@import "bulma-0.7.5/sass/utilities/_all";
+@import "bulma-0.7.5/sass/base/_all";
+@import "bulma-0.7.5/sass/elements/_all";
+@import "bulma-0.7.5/sass/form/_all";
+@import "bulma-0.7.5/sass/components/breadcrumb";
+@import "bulma-0.7.5/sass/components/dropdown";
+@import "bulma-0.7.5/sass/components/list";
+@import "bulma-0.7.5/sass/components/menu";
+@import "bulma-0.7.5/sass/components/navbar";
+@import "bulma-0.7.5/sass/grid/columns";
+@import "bulma-0.7.5/sass/layout/_all";
+
+// Bulma to CSS variables
+
+:root {
+  --size-1: #{$size-1};
+  --size-2: #{$size-2};
+  --size-3: #{$size-3};
+  --size-4: #{$size-4};
+  --size-5: #{$size-5};
+  --size-6: #{$size-6};
+  --size-7: #{$size-7};
+  --weight-light: #{$weight-light};
+  --weight-normal: #{$weight-normal};
+  --weight-semibold: #{$weight-semibold};
+  --weight-bold: #{$weight-bold};
+  --weight-extrabold: 800;
+  --family-condensed: "Roboto Condensed", BlinkMacSystemFont, -apple-system, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+// General
+//////////
+
+.no-border {
+  border: none;
+}
+
+.strong, strong {
+  font-weight: $weight-bold;
+}
+
+a:hover {
+  transition: color var(--transition-duration-normal) var(--transition-timing-function);
+}
+
+p {
+  margin: var(--size-6) 0;
+  line-height: var(--size-4);
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--color-contrast-high);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder, /* Internet Explorer 10-11 */
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: var(--color-contrast-high);
+}
+
+[data-theme="dark"] {
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--color-contrast-medium);
+    opacity: 1; /* Firefox */
+  }
+
+  :-ms-input-placeholder, /* Internet Explorer 10-11 */
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: var(--color-contrast-medium);
+  }
+}
+
+// Button
+/////////
+
+.button:focus {
+  outline: none;
+  outline: none;
+}
+
+// Headings
+///////////
+
+h1, h2, h3 {
+  font-weight: var(--weight-normal);
+  letter-spacing: -0.01em;
+}
+h2 {
+  letter-spacing: -0.02em;
+}
+
+h4 {
+  font-weight: var(--weight-semibold);
+}
+
+.sticky {
+  position: sticky;
+}
+
+mark {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+i.azure {
+    color: var(--color-azure);
+}
+
+// Main
+///////
+
+.main {
+  min-height: calc(100vh - 0px);
+}
+
+// * {
+//   transition: all var(--transition-duration-normal) var(--transition-timing-function);
+// }

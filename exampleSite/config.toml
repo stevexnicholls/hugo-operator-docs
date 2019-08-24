@@ -1,0 +1,55 @@
+theme = "hugo-operator-docs"
+themesdir = "../.."
+languageCode = "en-us"
+baseurl = "/"
+title = "Operator"
+
+disableKinds = ["taxonomyTerm"]
+
+# Code higlighting settings
+pygmentsCodefences = true
+pygmentsCodefencesGuessSyntax = true
+pygmentsOptions = ""
+pygmentsStyle = "dracula"
+pygmentsUseClasses = true
+pygmentsUseClassic = false
+
+defaultContentLanguage = "en"
+
+[params]
+search = true
+disableSearch = false
+logoutUrl = "/oauth2/sign_in"
+repositoryUrl = "https://github.com/stevexnicholls/hugo-operator-docs/"
+repositoryIcon = "git" # default is git; uses materialdesignicons.com
+highlightClientSide = false
+highlightStyle = "nord"
+siteSubtitle = "docs"
+enablebreadcrumb = true
+
+[outputs]
+home = [ "HTML", "RSS", "JSON"]
+
+#Languages 
+[languages]
+
+[languages.en]
+languageName = "English"
+weight = 1
+title = "Example"
+
+[languages.en.blackfriday]
+angledQuotes = false
+hrefTargetBlank = true
+
+# [[menu.shortcuts]]
+# name = "One"
+# identifier = "One"
+# url = "/"
+# weight = 1
+
+# [[menu.shortcuts]]
+# name = "Two"
+# identifier = "two"
+# url = "/"
+# weight = 2

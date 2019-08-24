@@ -1,0 +1,57 @@
+<nav class="navbar has-shadow is-spaced ml-30 mr-30" id="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand is-size-7">
+      <a class="navbar-item" href="{{ "/" | relURL }}">
+            <p class="title is-marginless">{{ .Site.Title }}
+            {{ if isset .Site.Params "sitesubtitle" }}
+              <span class="subtitle is-4">{{ .Site.Params.sitesubtitle }}</span>
+            {{ end }}
+          </p>
+      </a>
+      <a role="button" class="navbar-burger burger mt-10" aria-label="menu" aria-expanded="false" data-target="navbar-main">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="navbar-main" class="navbar-menu">
+      <div class="navbar-start">
+        {{ with .Site.Menus.shortcuts}}
+        {{ range sort . "Weight"}}
+        <a class="navbar-item has-text-black" href="{{.URL}}"
+          {{if eq $.Site.Params.menushortcutsnewtab true}}target="_blank" {{end}} rel="noopener">
+          {{ safeHTML .Name }}
+        </a>
+        {{ end}}
+        {{ end}}
+      </div>
+      <div class="navbar-end">
+        {{ partial "search.html" . }}
+        {{ with .Site.Params.logoutUrl }}
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button signout is-fullwidth" alt="logout" href="{{ . }}">
+              <span class="icon">
+                <i class="mdi mdi-logout"></i>
+              </span>
+              <span class="text">Sign out</span>
+            </a>
+          </div>
+        </div>
+        {{ end }}
+        {{ if isset .Site.Params "repositoryurl" }}
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button repo is-fullwidth" alt="repository" href="{{ .Site.Params.repositoryurl }}">
+              <span class="icon">
+                <i
+                  class="mdi mdi-{{ .Site.Params.repositoryicon | default "git" }} {{ .Site.Params.repositoryicon | default "git" }}"></i>
+              </span>
+              <span class="text">Repository</span>
+            </a>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</nav>

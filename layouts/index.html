@@ -1,0 +1,52 @@
+{{ define "title" }}
+  {{ .Title }} &ndash; {{ .Site.Title }}
+{{ end }}
+
+{{ define "main" }}
+    {{ partial "navbar.html" . }}
+    {{ partial "breadcrumb.html" . }}
+    {{ partial "navigation.html" . }}
+    <div class="section main">
+      <div class="container">
+        <div class="columns is-desktop">
+          <div class="column is-hidden-fullscreen">                        
+            {{ partial "treemenu.html" . }}
+          </div>
+          <main class="column is-two-thirds is-full-touch content is-fullscreen">
+              {{ if .Site.Home.Content }} 
+              {{ .Site.Home.Content }}
+              {{ else }}           
+                {{ if eq .Site.Language.Lang "fr" }}
+                  <h1>{{ .Title }}</h1>
+                  <p>
+                    Pas content. Ajoutez quelque chose à <code>content/_index.md</code> pour commencer.
+                  </p>
+                {{ else }}
+                  <h1>{{ .Title }}</h1>
+                  <p>
+                    No content. Add something to <code>content/_index.md</code> to get started.
+                  </p>
+                {{ end }}
+              {{ end }}
+          <div class="columns is-multiline is-two-thirds is-full-touch content is-fullscreen mt-20">
+
+              {{ range .Site.Home.Pages.ByWeight }}
+                {{ if .Title }}
+                  {{ partial "page_card.html" . }}
+                {{ end }}
+              {{ end }}
+
+              </div>
+          </main>
+          <div class="column is-hidden-fullscreen is-hidden-touch">
+              {{ partial "tableofcontents.html" . }}
+          </div>
+        </div>
+      </div>
+    </div>
+      {{ partial "footer.html" . }}
+{{ end }}
+
+{{ define "scripts" }}
+  {{ partial "scripts.html" . }}
+{{ end }}

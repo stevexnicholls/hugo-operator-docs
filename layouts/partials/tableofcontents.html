@@ -1,0 +1,6 @@
+{{ if gt .WordCount 1 }}
+<div id="toc" class="container toc mt-60">
+    <p class="has-text-weight-bold">What's on this Page</p>
+    {{.TableOfContents}}
+</div>
+{{ end }}

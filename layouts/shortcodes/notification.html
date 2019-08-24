@@ -1,0 +1,12 @@
+<div class="notification is-{{ .Get 0 }}">
+{{ if len .Params | eq 2 }}
+  <div class="icon">
+    <span class="icon">
+      <i class="mdi mdi-{{ .Get 1 }}"></i>
+    </span>
+  </div>
+{{ end }}
+  <div class="content">
+    {{ .Inner | markdownify }}
+  </div>
+</div>

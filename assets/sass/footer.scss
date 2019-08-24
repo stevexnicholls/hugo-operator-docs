@@ -1,0 +1,10 @@
+.footer {
+  margin-top: 3em;
+  background-color: var(--color-contrast-lower);
+  color: var(--color-contrast-medium);
+
+  .mdi-heart {
+    font-size: var(--size-4);
+    color: var(--color-red);
+  }
+}

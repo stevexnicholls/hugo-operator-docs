@@ -1,0 +1,45 @@
+<nav class="container breadcrumb" aria-label="breadcrumb">
+  <ul>
+      <li>
+        <div class="theme-toggle">
+          <a href="/" id="theme-toggle" class="toggle">
+            <span class="icon">
+              <i class="mdi"></i>
+            </span>
+          </a>
+        </div>
+      </li>
+      <li>
+        <div class="fullscreen-toggle">
+            <a href="" id="fullscreen-toggle" class="toggle">
+              <span class="icon">
+                <i class="mdi"></i>
+              </span>
+            </a>
+          </div>
+      </li>
+      <li class="{{ if eq . .Site.Home }} is-active{{ end }}">
+          <a href="{{ .Site.Home.Permalink }}" aria-current="page" class="toggle">
+              <span class="icon"><i class="mdi mdi-home"></i></span>
+          </a>
+      </li>
+    {{ if isset .Site.Params "enablebreadcrumb" }}
+      {{ if .Site.Params.enablebreadcrumb }}
+        {{ template "breadcrumbnav" (dict "p1" . "p2" .) }}
+    {{ end }}
+{{ end }}
+  </ul>
+</nav>
+
+{{ define "breadcrumbnav" }}
+  {{ if .p1.Parent }}
+    {{ template "breadcrumbnav" (dict "p1" .p1.Parent "p2" .p2 )  }}
+  {{ end }}
+  {{ if ne .p1 .p1.Site.Home }}
+  <li class="is-hidden-touch {{ if eq .p1 .p2 }} is-active{{ end }}">
+      <a href="{{ .p1.Permalink }}" aria-current="page">
+          {{ .p1.Title }}
+      </a>
+  </li>
+  {{ end }}
+{{ end }}

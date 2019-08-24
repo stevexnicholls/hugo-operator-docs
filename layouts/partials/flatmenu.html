@@ -1,0 +1,129 @@
+{{ $currentNode := . }}
+
+<aside class="container menu mt-60 is-hidden-touch">
+  <ul class="menu-list mt-0">
+    {{range .Site.Home.Sections.ByWeight}}
+      {{ template "flat-section-tree" dict "sect" . "currentnode" $currentNode }}
+    {{ end}}
+  </ul>
+</aside>
+
+<div class="container dropdown is-hidden-desktop">
+  <div class="dropdown-trigger">
+    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+      <span>Navigation</span>
+      <span class="icon is-small">
+        <i class="mdi mdi-chevron-down down" aria-hidden="true"></i>
+        <i class="mdi mdi-chevron-up up" aria-hidden="true"></i>
+      </span>
+    </button>
+  </div>
+  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+    <div class="dropdown-content">
+    {{range .Site.Home.Sections.ByWeight}}
+      {{ template "flat-section-dropdown" dict "sect" . "currentnode" $currentNode }}
+    {{ end}}
+    </div>
+  </div>
+</div>
+
+{{ define "flat-section-tree" }}
+  {{ $currentNode := .currentnode }}
+  {{ with .sect}}
+    {{ if .IsSection }}
+      {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
+      <hr class="dropdown-divider">
+      <li data-nav-id="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $currentNode.RelPermalink }} is-active {{ end }} {{- if .IsAncestor $currentNode}} is-active {{end}} {{ if ne $numberOfPages 0 }}parent{{ end }}">
+        <a href="{{ .RelPermalink }}" class="is-section {{ if eq .RelPermalink $currentNode.RelPermalink }} is-active {{ end }} {{- if .IsAncestor $currentNode}} is-active {{end}}"><!--<span class="icon"><i class=""></i></span>-->
+        {{ if .Params.Pre }}
+          <span class="pre">{{safeHTML .Params.Pre}}</span>
+        {{ end }}
+        {{ .LinkTitle }}
+        </a>
+        {{ if ne $numberOfPages 0 }}
+          <ul class="menu-list">
+          {{ .Scratch.Set "pages" .Pages }}
+          {{ if .Sections}}
+            {{ .Scratch.Set "pages" (.Pages | union .Sections) }}
+          {{ end }}
+          {{ $pages := (.Scratch.Get "pages") }}
+          {{ range $pages.ByWeight }}
+              {{ template "flat-section-tree-sub" dict "sect" . "currentnode" $currentNode }}
+          {{ end}}
+          </ul>
+        {{ end }}
+      </li>
+      {{ safeHTML .Params.head}}
+    {{ else }}
+      <li data-nav-id="{{ .RelPermalink }}">
+        <a href="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $currentNode.RelPermalink }} is-active{{end}}">
+      {{ if .Params.Pre }}
+        <span class="pre">{{safeHTML .Params.Pre}}</span>
+      {{ end }}
+      {{ .LinkTitle }}
+      </a></li>
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ define "flat-section-tree-sub" }}
+  {{ $currentNode := .currentnode }}
+  {{ with .sect}}
+    {{ if .IsSection }}
+      {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
+        <p class="menu-label">{{ .Title }}</p>
+        {{ if ne $numberOfPages 0 }}
+          {{ .Scratch.Set "pages" .Pages }}
+          {{ if .Sections}}
+            {{ .Scratch.Set "pages" (.Pages | union .Sections) }}
+          {{ end}}
+          {{ $pages := (.Scratch.Get "pages") }}
+          {{ range $pages.ByWeight }}
+              {{ template "flat-section-tree-sub" dict "sect" . "currentnode" $currentNode }}
+          {{ end}}
+        {{ end }}
+      {{ safeHTML .Params.head}}
+    {{ else }}
+      <li data-nav-id="{{ .RelPermalink }}">
+        <a href="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $currentNode.RelPermalink }} is-active{{end}}">
+      {{ if .Params.Pre }}
+        <span class="pre">{{safeHTML .Params.Pre}}</span>
+      {{ end }}
+      {{ .LinkTitle }}  
+      </a></li>
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ define "flat-section-dropdown" }}
+  {{ $currentNode := .currentnode }}
+  {{ with .sect}}
+    {{ if .IsSection }}
+      {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
+      <hr class="dropdown-divider">
+      <a href="{{ .RelPermalink }}" data-nav-id="{{ .RelPermalink }}" class="strong dropdown-item {{ if eq .RelPermalink $currentNode.RelPermalink }} is-active {{ end }} {{ if ne $numberOfPages 0 }} parent {{ end }} {{ if eq .RelPermalink $currentNode.RelPermalink }} is-active {{ end }} is-section">
+          {{ if .Params.Pre }}
+            <span class="pre">{{safeHTML .Params.Pre}}</span>
+          {{ end }}
+          {{ .LinkTitle }}
+          </a>
+      {{ if ne $numberOfPages 0 }}
+        {{ .Scratch.Set "pages" .Pages }}
+        {{ if .Sections}}
+          {{ .Scratch.Set "pages" (.Pages | union .Sections) }}
+        {{ end}}
+        {{ $pages := (.Scratch.Get "pages") }}
+        {{ range $pages.ByWeight }}
+            {{ template "flat-section-dropdown" dict "sect" . "currentnode" $currentNode }}
+        {{ end}}
+      {{ end }}
+    {{ else }}    
+      <a data-nav-id="{{ .RelPermalink }}"><a href="{{ .RelPermalink }}" class="dropdown-item {{ if eq .RelPermalink $currentNode.RelPermalink }} is-active{{end}}">
+      {{ if .Params.Pre }}
+        <span class="pre">{{safeHTML .Params.Pre}}</span>
+      {{ end }}
+      {{ default .LinkTitle }}
+      </a>
+    {{ end }}
+  {{ end }}
+{{ end }}

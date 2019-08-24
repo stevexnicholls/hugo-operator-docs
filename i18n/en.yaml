@@ -1,0 +1,11 @@
+- id: translations
+  translation: 
+    one: "Translation"
+    other: "Translations"
+
+# Search label
+- id: search
+  translation: "Search"
+
+- id: Search-placeholder
+  translation: "Search..."

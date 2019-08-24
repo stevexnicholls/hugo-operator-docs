@@ -1,0 +1,103 @@
+{{ $currentNode := . }}
+
+<aside class="container menu mt-60 is-hidden-touch is-hidden-fullscreen">
+  <ul class="menu-list mt-0">
+    {{range .Site.Home.Sections.ByWeight}}
+      {{ template "section-tree" dict "sect" . "currentnode" $currentNode }}
+    {{ end}}
+  </ul>
+  <ul class="menu-list mt-0">
+    {{range .Site.Home.Pages.ByWeight}}
+      {{ if and (eq .Parent .Site.Home) (.Title) (not .IsSection)}}
+        {{ template "home-page" dict "page" . "currentnode" $currentNode }}
+      {{ end }}
+    {{ end}}
+  </ul>
+</aside>
+
+{{ define "section-tree" }}
+  {{ $currentNode := .currentnode }}
+  {{ with .sect}}
+    {{ if .IsSection }}
+      {{ $numberOfPages := len .Pages }}
+      <li data-nav-id="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $currentNode.RelPermalink }} is-active {{ end }} {{- if .IsAncestor $currentNode}} is-active {{end}} {{ if ne $numberOfPages 0 }}parent{{ end }}">
+        <a href="{{ .RelPermalink }}" class="is-inline-flex is-section {{ if eq .RelPermalink $currentNode.RelPermalink }} is-active {{ end }} {{- if .IsAncestor $currentNode}} is-active {{end}}">
+          <span class="icon"><i class="mdi"></i></span>
+          {{ if .Params.Pre }}
+            <span class="pre">{{safeHTML .Params.Pre}}</span>
+          {{ end }}
+          {{ .LinkTitle }}
+        </a>
+        {{ if ne $numberOfPages 0 }}
+          <ul class="menu-list">
+          {{ .Scratch.Set "pages" .Pages }}
+          {{ $pages := (.Scratch.Get "pages") }}
+          {{ range $pages.ByWeight }}
+              {{ template "section-tree-sub" dict "sect" . "currentnode" $currentNode }}
+          {{ end}}
+          </ul>
+        {{ end }}
+      </li>
+      {{ safeHTML .Params.head}}
+    {{ else }}
+      <li data-nav-id="{{ .RelPermalink }}"><a href="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $currentNode.RelPermalink }} is-active{{end}}">
+      {{ if .Params.Pre }}
+        <span class="pre">{{safeHTML .Params.Pre}}</span>
+      {{ end }}
+      {{ .LinkTitle }}
+      {{ if .Params.Post }}
+        <span class="post">{{safeHTML .Params.Post}}</span>
+      {{ end }}
+      </a></li>
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ define "section-tree-sub" }}
+  {{ $currentNode := .currentnode }}
+  {{ with .sect}}
+    {{ if .IsSection }}
+      {{ $numberOfPages := len .Pages }}
+      <!-- <li class="has-background-light"> -->
+        <p class="menu-label">{{ .Title }}</p>
+        {{ if ne $numberOfPages 0 }}
+          <!-- <ul class="menu-list"> -->
+          {{ .Scratch.Set "pages" .Pages }}
+          {{ $pages := (.Scratch.Get "pages") }}
+          {{ range $pages.ByWeight }}
+              {{ template "section-tree-sub" dict "sect" . "currentnode" $currentNode }}
+          {{ end}}
+          <!-- </ul> -->
+        {{ end }}
+      <!-- </li> -->
+      {{ safeHTML .Params.head}}
+    {{ else }}
+      <li data-nav-id="{{ .RelPermalink }}"><a href="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $currentNode.RelPermalink }} is-active{{end}}">
+      {{ if .Params.Pre }}
+        <span class="pre">{{safeHTML .Params.Pre}}</span>
+      {{ end }}
+      {{ .LinkTitle }}
+      {{ if .Params.Post }}
+        <span class="post">{{safeHTML .Params.Post}}</span>
+      {{ end }}  
+      </a></li>
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/*  page  */}}
+
+{{ define "home-page" }}
+  {{ $currentNode := .currentnode }}
+  {{ with .page}}
+    <li data-nav-id="{{ .RelPermalink }}"><a href="{{ .RelPermalink }}" class="{{ if eq .RelPermalink $currentNode.RelPermalink }} is-active{{end}} is-home">
+    {{ if .Params.Pre }}
+      <span class="pre">{{safeHTML .Params.Pre}}</span>
+    {{ end }}
+    {{ .LinkTitle }}
+    {{ if .Params.Post }}
+      <span class="post">{{safeHTML .Params.Post}}</span>
+    {{ end }}
+    </a></li>
+  {{ end }}
+{{ end }}

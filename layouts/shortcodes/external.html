@@ -1,0 +1,14 @@
+<div class="notification is-info">
+    <div class="icon">
+      <span class="icon">
+        <i class="mdi mdi-link-variant"></i>
+      </span>
+    </div>
+    <div class="content">
+        {{ if $.Page.Params.canonicalUrl }}
+        This document was generated from an external <a href="{{ $.Page.Params.canonicalUrl }}">source</a>{{ if $.Page.Params.repository }} located in this <a href="{{ $.Page.Params.repository }}">repository</a>{{ end }}.
+        {{ else }}
+        This document was generated from an external source.
+        {{ end }}
+    </div>
+  </div>

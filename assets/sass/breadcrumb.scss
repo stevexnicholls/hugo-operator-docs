@@ -1,0 +1,142 @@
+// Breadcrumb
+/////////////
+
+[data-theme="dark"] {
+  .breadcrumb li.is-active a {
+    color: var(--color-primary);
+  }
+
+  .breadcrumb li a:hover,
+  a:hover {
+    color: var(--color-contrast-higher);
+  }
+
+  .breadcrumb li a {
+    color: var(--color-contrast-high);
+  }
+
+}
+
+.breadcrumb li:first-of-type+li::before,
+.breadcrumb li:nth-of-type(2)+li::before {
+  content: "";
+}
+
+[data-fullscreen="true"] {
+
+  .is-fullscreen {
+    width: 100% !important;
+  }
+
+  .is-hidden-fullscreen {
+    display: none !important;
+  }
+
+}
+
+@include touch {
+
+  .breadcrumb .fullscreen-toggle {
+    a.toggle {
+      cursor: default;
+      pointer-events: none;
+
+      i {
+        color: var(--color-contrast-low) !important;
+      }
+    }
+  }
+
+  .is-hidden-fullscreen {
+    display: none !important;
+  }
+}
+
+.breadcrumb a.toggle {
+  color: var(--color-primary) !important;
+  padding: 0;
+
+}
+
+.fullscreen-toggle {
+  a {
+
+    &:hover {
+      color: var(--color-primary);
+    }
+
+    font-size: 1.25rem;
+
+    i:before {
+      content: "\F293";
+      transition: transform var(--transition-duration-fast) var(--transition-timing-function);
+    }
+
+  }
+}
+
+[data-fullscreen="true"] .fullscreen-toggle {
+  a {
+    i:before {
+      content: "\F294";
+      transform: rotate(180deg);
+      transition: transform var(--transition-duration-fast) var(--transition-timing-function);
+    }
+  }
+}
+
+.theme-toggle {
+  a {
+
+    &:hover {
+      color: var(--color-primary);
+    }
+
+    font-size: 1em;
+
+    i:before {
+      content: "\F0DD";
+      transition: transform var(--transition-duration-fast) var(--transition-timing-function);
+    }
+  }
+}
+
+[data-theme="dark"] .theme-toggle {
+  a {
+    i:before {
+      content: "\F0E0";
+      transform: rotate(180deg);
+      transition: transform var(--transition-duration-fast) var(--transition-timing-function);
+    }
+  }
+}
+
+.breadcrumb li:nth-of-type(3) a {
+  padding: 0;
+}
+
+.breadcrumb {
+
+  padding: 1em 3rem 1em 1rem;
+
+  &:not(:last-child) {
+    margin-bottom: 0;
+  }
+
+  i {
+    color: var(--color-primary);
+  }
+
+  li a {
+    color: var(--color-contrast-high);
+  }
+
+  li.is-active a {
+    color: var(--color-primary);
+  }
+
+  .icon:first-child {
+    margin-right: .25em;
+  }
+
+}

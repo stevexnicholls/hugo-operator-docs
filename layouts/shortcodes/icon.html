@@ -1,0 +1,7 @@
+<span class="icon">
+{{ if len .Params | eq 2 }}
+  <i class="{{ .Get 0 }} {{ .Get 1 }}"></i>
+{{ else }}
+  <i class="mdi mdi-{{ .Get 0 }}"></i>
+{{ end }}
+</span>

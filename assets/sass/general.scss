@@ -1,0 +1,128 @@
+:root,
+[data-theme="dark"] {
+  background-color: var(--color-bg);
+  transition: background-color var(--transition-duration-slow) var(--transition-timing-function);
+
+  body,
+  .title,
+  strong {
+    color: var(--color-contrast-higher);
+    transition: color var(--transition-duration-slow) var(--transition-timing-function);
+  }
+
+  body,
+  .title,
+  strong {
+    a {
+      transition: none;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-contrast-high);
+    transition: color var(--transition-duration-slow) var(--transition-timing-function);
+  }
+}
+
+// General
+//////////
+
+.no-border {
+  border: none;
+}
+
+.strong,
+strong {
+  font-weight: $weight-bold;
+}
+
+a:hover {
+  transition: color var(--transition-duration-normal) var(--transition-timing-function);
+}
+
+p {
+  margin: var(--size-6) 0;
+  line-height: var(--size-4);
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--color-contrast-high);
+  opacity: 1;
+  /* Firefox */
+}
+
+:-ms-input-placeholder,
+/* Internet Explorer 10-11 */
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--color-contrast-high);
+}
+
+[data-theme="dark"] {
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--color-contrast-medium);
+    opacity: 1;
+    /* Firefox */
+  }
+
+  :-ms-input-placeholder,
+  /* Internet Explorer 10-11 */
+  ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: var(--color-contrast-medium);
+  }
+}
+
+// Button
+/////////
+
+.button:focus {
+  outline: none;
+  outline: none;
+}
+
+// Headings
+///////////
+
+h1,
+h2,
+h3 {
+  font-weight: var(--weight-normal);
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  letter-spacing: -0.02em;
+}
+
+h4 {
+  font-weight: var(--weight-semibold);
+}
+
+.sticky {
+  position: sticky;
+}
+
+mark {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+i.azure {
+  color: var(--color-azure);
+}
+
+.main {
+  min-height: calc(100vh - 0px);
+}
+
+// * {
+//   transition: all var(--transition-duration-normal) var(--transition-timing-function);
+// }

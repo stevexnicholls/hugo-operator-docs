@@ -1,0 +1,4 @@
+{{ $mdi := resources.Get "css/materialdesignicons.min.css" }}
+<link href="{{ $mdi.Permalink }}" rel="stylesheet">
+{{ $allStyle := resources.Get "sass/_all.scss" | resources.ToCSS | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $allStyle.Permalink }}">

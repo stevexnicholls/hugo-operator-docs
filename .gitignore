@@ -1,0 +1,5 @@
+hugo-operator-docs
+public/
+***.DS_Store
+***__ext_*
+exampleSite/resources/_gen/
