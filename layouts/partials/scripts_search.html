@@ -1,0 +1,3 @@
+{{ $searchPage := resources.Get "js/search.js" | resources.Minify }}
+{{ $secureSearchPage := $searchPage | resources.Fingerprint "sha512" }}
+<script type="text/javascript" src="{{ $secureSearchPage.Permalink }}" integrity="{{ $secureSearchPage.Data.Integrity }}"></script>

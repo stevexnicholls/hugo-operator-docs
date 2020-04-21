@@ -1,5 +1,6 @@
 ---
 title: Template
+weight: 1
 ---
 
 # Template

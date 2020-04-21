@@ -9,10 +9,10 @@
     <div class="section main">
       <div class="container">
         <div class="columns is-desktop">
-          <div class="column is-hidden-fullscreen">                        
+          <div class="column is-one-fifth is-hidden-fullscreen">                        
             {{ partial "treemenu.html" . }}
           </div>
-          <main class="column is-two-thirds is-full-touch content is-fullscreen">
+          <main class="column is-three-fifths is-full-touch content is-fullscreen">
               {{ if .Site.Home.Content }} 
               {{ .Site.Home.Content }}
               {{ else }}           
@@ -29,18 +29,13 @@
                 {{ end }}
               {{ end }}
           <div class="columns is-multiline is-two-thirds is-full-touch content is-fullscreen mt-20">
-
               {{ range .Site.Home.Pages.ByWeight }}
                 {{ if .Title }}
                   {{ partial "page_card.html" . }}
                 {{ end }}
               {{ end }}
-
               </div>
           </main>
-          <div class="column is-hidden-fullscreen is-hidden-touch">
-              {{ partial "tableofcontents.html" . }}
-          </div>
         </div>
       </div>
     </div>

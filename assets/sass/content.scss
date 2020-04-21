@@ -1,5 +1,10 @@
 .content {
 
+  img {
+    max-width: 80%;
+    border: 1px solid var(--color-contrast-low);
+  }
+
   hr {
     background-color: var(--color-contrast-low);
     height: 1px;
@@ -145,6 +150,10 @@
 
 .content {
 
+  a:hover {
+    color: var(--color-primary);
+  }
+  
   .table-container {
     margin: 1em 0 2em 0;
   }
@@ -186,7 +195,7 @@
       }
 
       tr:nth-child(even) {
-        background-color: alpha(var(--color-contrast-lower), 0.5);
+        background-color: none; // alpha(var(--color-contrast-lower), 0);
       }
     }
 
@@ -302,7 +311,7 @@ main {
     text-align: center;
     line-height: 2.25rem;
     width: 2.25rem;
-    box-shadow: var(--shadow-low), 0 0 0 0.5rem var(--color-bg);
+    box-shadow: 0 0 0 0.5rem var(--color-bg);
     content: counter(steps);
     font-weight: var(--weight-bold);
     background: var(--color-primary);

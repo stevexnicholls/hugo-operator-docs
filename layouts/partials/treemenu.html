@@ -26,7 +26,7 @@
           {{ if .Params.Pre }}
             <span class="pre">{{safeHTML .Params.Pre}}</span>
           {{ end }}
-          {{ .LinkTitle }}
+          {{ .LinkTitle | default .File.BaseFileName }}
         </a>
         {{ if ne $numberOfPages 0 }}
           <ul class="menu-list">
@@ -76,7 +76,7 @@
       {{ if .Params.Pre }}
         <span class="pre">{{safeHTML .Params.Pre}}</span>
       {{ end }}
-      {{ .LinkTitle }}
+      {{ .LinkTitle | default .File.BaseFileName }}
       {{ if .Params.Post }}
         <span class="post">{{safeHTML .Params.Post}}</span>
       {{ end }}  
@@ -94,7 +94,7 @@
     {{ if .Params.Pre }}
       <span class="pre">{{safeHTML .Params.Pre}}</span>
     {{ end }}
-    {{ .LinkTitle }}
+    {{ .LinkTitle | default .File.BaseFileName }}
     {{ if .Params.Post }}
       <span class="post">{{safeHTML .Params.Post}}</span>
     {{ end }}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang | default "en" }}">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        var darkThemeSelected = (localStorage.getItem('themeToggle') !== null && localStorage.getItem('themeToggle') === 'dark');
+        darkThemeSelected ? document.documentElement.setAttribute('data-theme', 'dark') : document.documentElement.removeAttribute('data-theme');
+        var fullscreenSelected = (localStorage.getItem('fullscreenToggle') !== null && localStorage.getItem('fullscreenToggle') === 'true');
+        fullscreenSelected ? document.documentElement.setAttribute('data-fullscreen', 'true') : document.documentElement.removeAttribute('data-fullscreen');
+    </script>
+    <title>{{ .Site.Title }} | {{ .Title }}</title>
+    {{ partial "styles.html" . }}
+
+    {{ $favIcon := resources.Get "images/favicon.ico"  }}
+    <link rel="shortcut icon" href="{{ $favIcon.Permalink }}" type="image/x-icon" />
+
+    {{ if .Params.canonicalUrl }}
+    <link rel="canonical" href="{{ .Params.canonicalUrl }}">
+    {{ else }}
+    <link rel="canonical" href="{{ .Permalink }}">
+    {{ end }}
+    {{ partial "hook_head_end.html" . }}
+</head>
+<body data-languages="{{ with .Site.Params.language_tabs  }}[{{ range $i,$e := . }}{{- if $i -}}, {{ end -}}{{ printf " %q " $e.key }}{{end}}]{{ end }}">
+  {{ block "main" . }}
+  {{ end }}
+  {{ block "scripts" . }}
+  {{ end }}
+  {{ partial "hook_body_end.html" . }}
+</body>
+</html>
+
+{{ define "title" }}
+  {{ .Title }} &ndash; {{ .Site.Title }}
+{{ end }}
+
+{{ define "main" }}
+    {{ partial "navbar.html" . }}
+    {{ partial "breadcrumb.html" . }}
+    {{ partial "navigation.html" . }}
+    <div class="section main">
+      <div class="container">
+        <div class="columns is-desktop">
+          <div class="column is-one-fifth is-hidden-fullscreen">                        
+            {{ partial "treemenu.html" . }}
+          </div>
+          <main class="column is-four-fifths is-full-touch content is-fullscreen">
+          {{ .Content }}
+          <div class="wrap">
+            <form action="/search/">
+              <div class="search">
+                <input type="text" class="searchTerm" id="search-input-main" name="search" placeholder="" alt="search">
+                <button type="submit" class="searchButton">
+                  <i class="mdi mdi-magnify"></i>
+                </button>
+              </div>
+            </form>
+         </div>
+          <section id="search-results"></section>
+          <div class="columns is-multiline is-full-touch content is-fullscreen mt-20">
+              {{ range .Pages }}
+                {{ if .Title }}
+                <div class="column is-half ">
+                  <div class="page-card pa4-1">
+                    <div class="page-card-header">
+                      <p>
+                        <a href="{{ .RelPermalink }}" class="">{{ .Title }}</a>
+                      </p>
+                    </div>
+                    <div class="page-card-content">
+                      {{ .Description }}
+                    </div>
+                    <div class="page-card-footer">
+                      <p>
+                          <a href="{{ .RelPermalink }}">Read more</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {{ end }}
+              {{ end }}
+              </div>
+          </main>
+        </div>
+      </div>
+    </div>
+      {{ partial "footer.html" . }}
+{{ end }}
+
+{{ define "scripts" }}
+  {{ partial "scripts.html" . }}
+  {{ partial "scripts_search.html" . }}
+{{ end }}

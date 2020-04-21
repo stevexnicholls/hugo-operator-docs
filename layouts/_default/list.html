@@ -9,10 +9,10 @@
     <div class="section main">
       <div class="container">
         <div class="columns is-desktop">
-          <div class="column is-hidden-fullscreen">                        
+          <div class="column is-one-fifth is-hidden-fullscreen">                        
             {{ partial "treemenu.html" . }}
           </div>
-          <main class="column is-two-thirds is-full-touch content is-fullscreen">
+          <main class="column is-three-fifths is-full-touch content is-fullscreen">
           {{ .Content }}
           <div class="columns is-multiline is-two-thirds is-full-touch content is-fullscreen mt-20">
               {{ range .Pages }}
@@ -38,7 +38,7 @@
               {{ end }}
               </div>
           </main>
-          <div class="column is-hidden-fullscreen is-hidden-touch">
+          <div class="column is-one-fifth is-hidden-fullscreen is-hidden-touch">
               {{ partial "tableofcontents.html" . }}
           </div>
         </div>

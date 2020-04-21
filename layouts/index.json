@@ -7,8 +7,9 @@
     "section": {{ if ne $page $page.Site.Home }}"{{ htmlEscape $page.Section }}"{{ else }}"home"{{ end }},
     "tags": [{{ range $tindex, $tag := $page.Params.tags }}{{ if $tindex }}, {{ end }}"{{ $tag| htmlEscape }}"{{ end }}],
     "description": "{{ htmlEscape .Description}}",
-    "content": {{$page.Plain | jsonify}},
-    "reluri": "{{ $page.RelPermalink }}"
+    "content": {{ $page.Plain | jsonify }},
+    "reluri": "{{ $page.RelPermalink }}",
+    "summary": {{ $page.Summary | jsonify }}
   }
   {{ end }}
-  {{ end }}]
+{{ end }}]

@@ -7,8 +7,13 @@
     line-height: 1.2em;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
-  }
 
+    &:hover {
+      color: var(--color-primary)
+    }
+    
+  }
+  
   ul {
     list-style: none;
     margin: 0;
@@ -26,7 +31,7 @@
     border-left: 1px solid $grey-lighter;
   }
 
-  & ul>li>ul>li>ul {
+  & ul>li>ul {
     display: none;
   }
 

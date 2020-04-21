@@ -18,8 +18,8 @@
       var baseurl = "{{.Site.BaseURL}}";
   {{ end }}
 </script>
-{{ $search := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint "sha512" }}
-<script type="text/javascript" src="{{ $search.Permalink }}" integrity="{{ $search.Data.Integrity }}"></script>
-<script>
+{{/* {{ $search := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint "sha512" }}
+<script type="text/javascript" src="{{ $search.Permalink }}" integrity="{{ $search.Data.Integrity }}"></script> */}}
+{{/* <script>
   autocomplete(document.getElementById("search-input"));
-</script>
+</script> */}}

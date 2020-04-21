@@ -1,19 +1,69 @@
-var lunrIndex, pagesIndex;
+const urlParams = new URLSearchParams(window.location.search);
+var idx, searchResults = null
+var documents = []
 
-function endsWith(str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1;
+function renderSearchResults(results) {
+  if (results.length > 0) {
+    // show max 20 results
+    if (results.length > 19) {
+      results = results.slice(0, 20)
+    }
+
+    // reset search results
+    searchResults.innerHTML = ''
+    // append results
+    results.forEach(result => {
+      // create result item
+      var article = document.createElement('article')
+      article.innerHTML = `
+            <div class="search-result"><div class="name"><a href="${result.ref}">${documents[result.ref].title}</a></div><div class="url"><a href="${result.ref}">${result.ref}</a></div><div class="summary">
+            ${documents[result.ref].summary} ...</div>
+            `
+      searchResults.appendChild(article)
+    })
+    // if results are empty
+  } else {
+    searchResults.innerHTML = '<p>No results found.</p>'
+  }
 }
 
-// Initialize lunrjs using generated index file
-function initLunr() {
-  if (!endsWith(baseurl, "/")) {
-    baseurl = baseurl + '/'
-  };
+function registerSearchHandler() {
+  // register on input event
+  searchInput.oninput = function (event) {
+    // remove search results if the user empties the search input field
+    if (searchInput.value == '') {
+      searchResults.innerHTML = ''
+    } else {
 
-  $.getJSON(baseurl + "index.json")
-    .done(function (index) {
-      pagesIndex = index;
-      lunrIndex = lunr(function () {
+      // get input value
+      var query = event.target.value
+
+      // run fuzzy search
+      var results = idx.search(query)
+
+      // render results
+      renderSearchResults(results)
+    }
+  }
+}
+
+window.onload = function () {
+
+  searchInput = document.getElementById('search-input-main')
+  searchResults = document.getElementById('search-results')
+
+  if (urlParams.has('search')) {
+    searchInput.value = urlParams.get('search');
+  }
+
+  fetch('/index.json', {
+    method: 'get'
+  }).then(
+    res => res.json()
+  ).then(
+    res => {
+      // index document
+      idx = lunr(function () {
         this.ref("uri");
         this.field('title', {
           boost: 15
@@ -28,124 +78,39 @@ function initLunr() {
           boost: 0
         });
 
-        pagesIndex.forEach(function (page) {
-          this.add(page)
-        }, this)
+        // remove stemmer due to issue with stemmed results
+        this.pipeline.remove(lunr.stemmer)
+        // this.pipeline.remove(lunr.trimmer)
+        // this.pipeline.remove(lunr.stopWordFilter)
+        this.searchPipeline.remove(lunr.stemmer)
+        // this.searchPipeline.remove(lunr.trimmer)
+        // this.searchPipeline.remove(lunr.stopWordFilter)
 
-        this.pipeline.remove(this.stemmer)
+        res.forEach(function (doc) {
+          if (doc.title) {
+            this.add(doc)
+            documents[doc.uri] = {
+              'title': doc.title,
+              'content': doc.content,
+              'section': doc.section,
+              'tags': doc.tags,
+              'reluri': doc.reluri,
+              'summary': doc.summary,
+            }
+          }
+        }, this);
       })
-    })
-    .fail(function (jqxhr, textStatus, error) {
-      var err = textStatus + ", " + error;
-      console.error("Error getting Hugo index file:", err);
-    });
-}
 
-/**
- * Trigger a search in lunr and transform the result
- *
- * @param  {String} query
- * @return {Array}  results
- */
-function search(query) {
-  // Find the item in our index corresponding to the lunr one to have more info
-  return lunrIndex.search(query).map(function (result) {
-    return pagesIndex.filter(function (page) {
-      return page.uri === result.ref;
-    })[0];
-  });
-}
-
-initLunr();
-
-function autocomplete(element) {
-  var currentFocus;
-  /*execute a function when someone writes in the text field:*/
-  element.addEventListener("input", function (e) {
-    var a, b, i, val = this.value;
-    /*close any already open lists of autocompleted values*/
-    closeAllLists();
-    if (!val) {
-      return false;
-    }
-    currentFocus = -1;
-    a = document.createElement("DIV");
-    a.setAttribute("id", this.id + "autocomplete-list");
-    a.setAttribute("class", "autocomplete-items");
-    this.parentNode.appendChild(a);
-    arr = search(val);
-    for (i = 0; i < arr.length; i++) {
-      b = document.createElement("DIV");
-      b.setAttribute("class", "autocomplete-item");
-      b.setAttribute("data-term", val);
-      b.setAttribute("data-title", arr[i].title);
-      b.setAttribute("data-uri", arr[i].uri);
-      b.innerHTML = "<p><span class='autocomplete-item__section'>" + arr[i].section + "/</span><span class='autocomplete-item__page'>" + arr[i].title + "</span></p>";
-      b.addEventListener("click", function (e) {
-        console.log("click" + this.getAttribute('data-uri'));
-        location.href = this.getAttribute('data-uri');
-        closeAllLists();
-      });
-      a.appendChild(b);
-    }
-  });
-  /*execute a function presses a key on the keyboard:*/
-  element.addEventListener("keydown", function (e) {
-    var x = document.getElementById(this.id + "autocomplete-list");
-    if (x) x = x.getElementsByTagName("div");
-    if (e.keyCode == 40) {
-      /*If the arrow DOWN key is pressed,
-      increase the currentFocus variable:*/
-      currentFocus++;
-      /*and and make the current item more visible:*/
-      addActive(x);
-    } else if (e.keyCode == 38) { //up
-      /*If the arrow UP key is pressed,
-      decrease the currentFocus variable:*/
-      currentFocus--;
-      /*and and make the current item more visible:*/
-      addActive(x);
-    } else if (e.keyCode == 13) {
-      /*If the ENTER key is pressed, prevent the form from being submitted,*/
-      e.preventDefault();
-      if (currentFocus > -1) {
-        /*and simulate a click on the "active" item:*/
-        if (x) x[currentFocus].click();
+      registerSearchHandler()
+      var query = urlParams.get('search')
+      if (query) {
+        var results = idx.search(query)
+        renderSearchResults(results)
       }
     }
-  });
-
-  function addActive(x) {
-    console.log("addActive:" + x);
-    /*a function to classify an item as "active":*/
-    if (!x) return false;
-    /*start by removing the "active" class on all items:*/
-    removeActive(x);
-    if (currentFocus >= x.length) currentFocus = 0;
-    if (currentFocus < 0) currentFocus = (x.length - 1);
-    /*add class "autocomplete-active":*/
-    x[currentFocus].classList.add("active");
-  }
-
-  function removeActive(x) {
-    /*a function to remove the "active" class from all autocomplete items:*/
-    for (var i = 0; i < x.length; i++) {
-      x[i].classList.remove("active");
+  ).catch(
+    err => {
+      searchResults.innerHTML = `<p>${err}</p>`
     }
-  }
-
-  function closeAllLists(el) {
-    /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
-    var x = document.getElementsByClassName("autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
-      if (el != x[i] && el != element) {
-        x[i].parentNode.removeChild(x[i]);
-      }
-    }
-  }
-
-  document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
-  });
+  )
 }

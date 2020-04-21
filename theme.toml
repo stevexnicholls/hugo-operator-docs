@@ -5,7 +5,7 @@ description = ""
 homepage = "https://github.com/stevexnicholls/hugo-operator-docs"
 tags = ["Documentation", "Docs", "Responsive", "Multilingual"]
 features = ["Documentation", "Multilingual"]
-min_version = 0.57
+min_version = 0.68
 
 [author]
   name = "Steve Nicholls"

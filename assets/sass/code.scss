@@ -97,7 +97,7 @@ code {
   }
 
   code:not([class]) {
-    background-color: alpha(var(--color-contrast-low),0.5);
+    background-color: alpha(var(--color-contrast-low),0.3);
     color: var(--color-contrast-high);
     border-radius: var(--code-block-border-radius);
     //box-shadow: var(--shadow-low);
@@ -149,6 +149,6 @@ code {
 }
 
 [data-theme="dark"] .content code:not([class]) {
-  background-color: var(--color-contrast-low);
+  background-color: var(--color-contrast-lower);
   color: var(--color-contrast);
 }

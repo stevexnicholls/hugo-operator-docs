@@ -58,6 +58,7 @@
         .icon {
           margin-right: 0;
           font-size: 1.4em;
+          padding-top: 2px;
         }
 
         &:hover {
@@ -85,8 +86,8 @@
       }
 
       .button:hover {
-        -webkit-transform: translate(0, -1px);
-        transform: translate(0, -1px);
+        // -webkit-transform: translate(0, -1px);
+        // transform: translate(0, -1px);
       }
 
       .button {
@@ -186,7 +187,7 @@
       #search-input {
         line-height: 1.15;
         border: none;
-        min-width: 0px;
+        min-width: 300px;
         width: 94%;
         font-size: 1em;
 
